@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+.post-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+}
+
+.post-card:hover {
+  transform: scale(0.95); /* Scale down to 0.95 times its size on hover */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
