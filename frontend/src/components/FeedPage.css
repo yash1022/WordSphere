@@ -1,0 +1,44 @@
+/* FeedPage.css */
+
+/* General styles */
+.container {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.text-dark {
+    color: #212529 !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+/* Post Card Styling */
+.post-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: scale(0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode */
+.bg-dark {
+    background-color: #333 !important;
+    color: #ffffff !important;
+}
+
+.bg-dark .text-muted {
+    color: #b3b3b3 !important; /* Adjust text-muted color for better contrast */
+}
+
+.bg-dark .post-card {
+    background-color: #444 !important;
+    border: none;
+}
+
+.bg-dark .card-body .text-white {
+    color: #ffffff !important;
+}

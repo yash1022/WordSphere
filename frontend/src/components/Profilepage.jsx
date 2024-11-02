@@ -1,154 +1,102 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faShare, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { authContext } from '../App';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-
-function ProfilePage() {
-
+function ProfilePage({ mode }) {
     const [data, setData] = useState({});
+    const Auth = useContext(authContext);
+    const navigate = useNavigate();
 
-    const Auth = useContext(authContext)
-    const navigate= useNavigate()
-
-    useEffect(()=>{
-
-        if(Auth.token){
-
-            fetchdata(Auth.token,Auth.User)
-
+    useEffect(() => {
+        if (Auth.token) {
+            fetchData(Auth.token, Auth.User);
+        } else {
+            navigate('/home');
         }
+    }, [Auth.token, Auth.User, navigate]);
 
-         else
-        {
-             navigate('/home')
-        }
-
-
-        
-      
-        
- },[Auth.token,Auth.User,navigate])
-
-    async function fetchdata(token,user_email)
-    {  
-        try{
-            const response= await fetch('http://localhost:5000/api/profile',{
+    async function fetchData(token, user_email) {
+        try {
+            const response = await fetch('http://localhost:5000/api/profile', {
                 method: 'POST',
-                headers:{
-                'Content-Type': 'application/json',
-                 authorization: 'Bearer '+ token,
-                 user:user_email
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: 'Bearer ' + token,
+                    user: user_email,
+                },
+            });
 
-                }
-            })
-
-            const data= await response.json();
-            
+            const data = await response.json();
             setData(data);
-            
-        }
-        catch(e)
-        {
-            console.error("Error fetching data",e);
+        } catch (e) {
+            console.error("Error fetching data", e);
         }
     }
 
-    const profileImage=data.profile_pic;
-    console.log(profileImage)
-    const postImage = "https://picsum.photos/200/300";
+    const profileImage = data.profile_pic || "https://picsum.photos/200/300";
 
-    const navOptions = [
-        "Posts",
-        "Likes",
-        "Favorites"
-    ];
-
-    // Sample data for posts
-    
-
-    // Calculate total likes, shares, and saves
-    
+    // Determine text and background colors based on the mode
+    const textColor = mode === 'dark' ? 'white' : '#343a40';
+    const bgColor = mode === 'dark' ? '#222' : '#e9ecef';
+    const postBgColor = mode === 'dark' ? '#333' : '#ffffff';
+    const secondaryTextColor = mode === 'dark' ? '#cccccc' : '#6c757d';
 
     return (
         <div className="container">
-            <div className="profile-header d-flex align-items-center justify-content-center p-4" style={{ backgroundColor: '#f5f5f5' }}>
-                <img src={data.profile_pic||postImage} alt="Profile" className="profile-image rounded-circle mr-3" style={{ width: '100px', height: '100px' }} />
+            <div className="profile-header d-flex align-items-center p-4" style={{ backgroundColor: bgColor, borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
+                <img src={profileImage} alt="Profile" className="profile-image rounded-circle mr-3" style={{ width: '100px', height: '100px', padding: '5px' }} />
+                <div className="profile-details d-flex flex-column" style={{ marginRight: 'auto' }}>
+                    <h2 style={{ margin: '0', color: textColor, fontWeight: 'bold' }}>YASH SINGHAL</h2>
+                    <p style={{ margin: '1rem 0 0 0', color: secondaryTextColor }}>{data.bio || "This user has not set a bio."}</p>
+                </div>
                 <div className="d-flex">
                     <div className="text-center mx-3">
-                        { <h4>{data.articles?.length||0}</h4>}
-                        <p>Posts</p>
+                        <h4 style={{ margin: '0', color: '#007bff' }}>{data.articles?.length || 0}</h4>
+                        <p style={{ margin: '0', color: secondaryTextColor }}>Posts</p>
                     </div>
                     <div className="text-center mx-3">
-                        <h4>1000</h4>
-                        <p>Followers</p>
+                        <h4 style={{ margin: '0', color: '#007bff' }}>1000</h4>
+                        <p style={{ margin: '0', color: secondaryTextColor }}>Followers</p>
                     </div>
                     <div className="text-center mx-3">
-                        <h4>500</h4>
-                        <p>Following</p>
+                        <h4 style={{ margin: '0', color: '#007bff' }}>500</h4>
+                        <p style={{ margin: '0', color: secondaryTextColor }}>Following</p>
                     </div>
                 </div>
-            </div>
-
-            <div className="profile-content mt-4 text-center">
-                <h2>{data.name}</h2>
-                
             </div>
 
             {/* Navigation Options */}
             <div className="profile-navigation mt-4 d-flex justify-content-around">
-                {navOptions.map((option, index) => (
-                    <div key={index} className="nav-option" style={{ cursor: 'pointer', color: 'black' }}>
-                        {option}
-                    </div>
-                ))}
+                <Link to="/all-posts" className="btn btn-primary">All Posts</Link>
+                <Link to="/liked" className="btn btn-primary">Likes</Link>
+                <Link to="/fav" className="btn btn-primary">Favorites</Link>
             </div>
 
-            {/* Total Post Statistics */}
-            {/* <div className="post-stats mt-4 d-flex justify-content-around">
-                <div className="stat text-center">
-                    <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: '24px', color: 'black' }} />
-                    <h4>{totalStats.likes}</h4>
-                    <p>Total Likes</p>
-                </div>
-                <div className="stat text-center">
-                    <FontAwesomeIcon icon={faShare} style={{ fontSize: '24px', color: 'black' }} />
-                    <h4>{totalStats.shares}</h4>
-                    <p>Total Shares</p>
-                </div>
-                <div className="stat text-center">
-                    <FontAwesomeIcon icon={faBookmark} style={{ fontSize: '24px', color: 'black' }} />
-                    <h4>{totalStats.saves}</h4>
-                    <p>Total Saves</p>
-                </div>
-            </div> */}
+            {/* Posts Heading */}
+            <h2 className="text-center mt-4" style={{ color: textColor }}>POSTS</h2>
 
             {/* Individual Posts */}
             <div className="mt-4">
                 {data.articles?.map((post) => (
-                    <div key={post.id} className="post border rounded p-3 mb-4">
+                    <div key={post.id} className="post border rounded p-3 mb-4" style={{ backgroundColor: postBgColor, boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }}>
                         <div className="d-flex justify-content-between">
-                            
-                            <p>Posted on {post.created_at}</p>
+                            <p className="text-muted" style={{ margin: '0', color: secondaryTextColor }}>Posted on {post.created_at}</p>
                         </div>
-                        <img  alt="Post" className="post-image img-fluid mb-3" />
-                            <p>{post.title}</p>
+                        <img alt="Post" className="post-image img-fluid mb-3" />
+                        <p style={{ color: textColor }}>{post.title}</p>
                         <div className="post-stats d-flex justify-content-around mt-3">
                             <div className="stat text-center">
-                                <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: '20px', color: 'black' }} />
-                                {/* <h5>{post.stats.likes}</h5> */}
-                                <p>Likes</p>
+                                <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: '20px', color: textColor }} />
+                                <p style={{ margin: '0', color: textColor }}>Likes</p>
                             </div>
-                           
-                            
                         </div>
                     </div>
                 ))}
             </div>
         </div>
-
-        
-)}
+    );
+}
 
 export default ProfilePage;
