@@ -5,6 +5,9 @@ import FeedPage from "./components/FeedPage";
 import Fav from "./components/Fav";
 import Like from "./components/Like";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faRetweet, faComment } from '@fortawesome/free-solid-svg-icons';
+import Createpost from "./components/Createpost";
 
 const authContext = createContext();
 
@@ -24,6 +27,25 @@ function App() {
         }
     };
 
+  return (
+  <>
+    <Router>
+      <authContext.Provider value={{token,setToken,value,setValue,User,setUser}}>
+
+          <Navbar mode={mode} toggleMode={toggleMode} />
+        <Routes>
+
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/create" element={<Createpost/>}/>
+
+        </Routes>
+
+      </authContext.Provider>
+
+    </Router>
+  </>
+  );
     return (
         <Router>
             <authContext.Provider value={{ token, setToken, value, setValue, User, setUser, mode }}>
