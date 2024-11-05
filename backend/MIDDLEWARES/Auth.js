@@ -12,7 +12,7 @@ async function validatetoken(req,res,next){
 
         if(decode)
         {
-            console.log("TOKEN VALIDATED SUCCESSFULLY")
+            
             next()
         }
 

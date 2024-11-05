@@ -29,11 +29,14 @@ function ProfilePage({ mode }) {
             });
 
             const data = await response.json();
+            
             setData(data);
         } catch (e) {
             console.error("Error fetching data", e);
         }
     }
+
+   
 
     const profileImage = data.profile_pic || "https://picsum.photos/200/300";
 
@@ -48,7 +51,7 @@ function ProfilePage({ mode }) {
             <div className="profile-header d-flex align-items-center p-4" style={{ backgroundColor: bgColor, borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
                 <img src={profileImage} alt="Profile" className="profile-image rounded-circle mr-3" style={{ width: '100px', height: '100px', padding: '5px' }} />
                 <div className="profile-details d-flex flex-column" style={{ marginRight: 'auto' }}>
-                    <h2 style={{ margin: '0', color: textColor, fontWeight: 'bold' }}>YASH SINGHAL</h2>
+                    <h2 style={{ margin: '0', color: textColor, fontWeight: 'bold' }}>{data.name}</h2>
                     <p style={{ margin: '1rem 0 0 0', color: secondaryTextColor }}>{data.bio || "This user has not set a bio."}</p>
                 </div>
                 <div className="d-flex">
@@ -80,7 +83,7 @@ function ProfilePage({ mode }) {
             {/* Individual Posts */}
             <div className="mt-4">
                 {data.articles?.map((post) => (
-                    <div key={post.id} className="post border rounded p-3 mb-4" style={{ backgroundColor: postBgColor, boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }}>
+                    <div key={post.id} className="post border rounded p-3 mb-4" style={{ backgroundColor: postBgColor, boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }} onClick={()=>{navigate('/post',{state:{post}})}}>
                         <div className="d-flex justify-content-between">
                             <p className="text-muted" style={{ margin: '0', color: secondaryTextColor }}>Posted on {post.created_at}</p>
                         </div>

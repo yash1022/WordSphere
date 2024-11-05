@@ -3,8 +3,9 @@ const app= express();
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
-const { insert_user, get_user} = require('./script');
-const {validatetoken}= require('./MIDDLEWARES/Auth')
+const { insert_user, get_user, create_article} = require('./script');
+const {validatetoken}= require('./MIDDLEWARES/Auth');
+const { constrainedMemory } = require('process');
 
 
 
@@ -44,14 +45,49 @@ app.post('/api/profile',validatetoken,async(req,res)=>{
    
 
    const user_info= await get_user(email);
-   console.log(user_info);
+
+   
+   
 
    res.json(user_info);
 })
 
 
+app.post('/api/create', validatetoken, async(req,res)=>{
+
+   
+
+    const {user,title,category,thumbnail,content}= req.body;
+
+    
+
+   
 
 
+
+    try{
+        await create_article(user,title,content,category,thumbnail)
+        {
+            console.log("ARTICLE CREATED SUCCESSFULLY");
+            res.json({message:"Article created successfully"})
+        }
+       
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+
+
+    
+
+
+
+
+      
+
+
+})
 
 const PORT=process.env.PORT||5000;
 

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get_user = exports.insert_user = void 0;
+exports.create_article = exports.get_user = exports.insert_user = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const insert_user = (data) => __awaiter(void 0, void 0, void 0, function* () {
@@ -65,3 +65,44 @@ const get_user = (Email) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.get_user = get_user;
+const create_article = (Email, Title, Content, Category, Picture_url) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log("Category value:", Category);
+        let categoryRecord = yield prisma.category.findUnique({
+            where: {
+                name: Category,
+            }
+        });
+        if (!categoryRecord) {
+            console.log('No category record');
+            return;
+        }
+        let author = yield prisma.user.findUnique({
+            where: {
+                email: String(Email),
+            }
+        });
+        if (!author) {
+            console.log("USER NOT FOUND");
+            return;
+        }
+        const createArticle = yield prisma.article.create({
+            data: {
+                title: String(Title),
+                content: String(Content),
+                // picture: String(Picture_url),
+                author_id: author.id,
+                category_id: categoryRecord.id,
+            }
+        });
+        return createArticle;
+    }
+    catch (e) {
+        console.error('Error finding user:', e);
+        throw e;
+    }
+    finally {
+        yield prisma.$disconnect();
+    }
+});
+exports.create_article = create_article;

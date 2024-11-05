@@ -31,7 +31,7 @@ model Article{
   id Int @id @default(autoincrement())
   title String
   picture String?
-  content String
+  content String @db.Text
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
   author User? @relation("userarticles", fields: [author_id], references: [id])
@@ -46,8 +46,9 @@ model Article{
 
 model Category{
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   articles Article[] @relation("articlecategory")
+
 }
 
 

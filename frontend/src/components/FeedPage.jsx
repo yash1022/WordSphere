@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faRetweet, faComment } from '@fortawesome/free-solid-svg-icons';
-import './FeedPage.css';
+import '../CSS/FeedPage.css';
 
 const FeedPage = ({ mode }) => {
     const textColorClass = mode === 'dark' ? 'text-white' : 'text-dark';

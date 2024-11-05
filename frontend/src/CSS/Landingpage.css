@@ -1,0 +1,46 @@
+.homepage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    font-family: "Raleway", sans-serif;
+    margin-top:-130px;
+    margin-left:-20px ;
+  }
+  
+  .homepage-text {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  span{
+    color:blue;
+  }
+  
+  .homepage-text h1 {
+    font-size: 70px;
+    color:black;
+    margin-bottom: 20px;
+  }
+  
+  .homepage-text p {
+    font-size: 18px;
+    color:gray;
+  }
+  
+  .homepage-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 90px;
+  }
+  
+  .homepage-image img {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
