@@ -27,24 +27,21 @@ function ProfilePage({ mode }) {
                     user: user_email,
                 },
             });
-
             const data = await response.json();
-            
             setData(data);
         } catch (e) {
             console.error("Error fetching data", e);
         }
     }
 
-   
-
     const profileImage = data.profile_pic || "https://picsum.photos/200/300";
 
-    // Determine text and background colors based on the mode
+    // Determine colors based on the mode
     const textColor = mode === 'dark' ? 'white' : '#343a40';
     const bgColor = mode === 'dark' ? '#222' : '#e9ecef';
     const postBgColor = mode === 'dark' ? '#333' : '#ffffff';
     const secondaryTextColor = mode === 'dark' ? '#cccccc' : '#6c757d';
+    const buttonColor = mode === 'dark' ? '#007bff' : '#343a40';
 
     return (
         <div className="container">
@@ -70,11 +67,10 @@ function ProfilePage({ mode }) {
                 </div>
             </div>
 
-            {/* Navigation Options */}
+            {/* Navigation Options with Professional Styling */}
             <div className="profile-navigation mt-4 d-flex justify-content-around">
-                <Link to="/all-posts" className="btn btn-primary">All Posts</Link>
-                <Link to="/liked" className="btn btn-primary">Likes</Link>
-                <Link to="/fav" className="btn btn-primary">Favorites</Link>
+                <Link to="/liked" className="btn btn-professional">Likes</Link>
+                <Link to="/fav" className="btn btn-professional">Favorites</Link>
             </div>
 
             {/* Posts Heading */}
@@ -83,7 +79,7 @@ function ProfilePage({ mode }) {
             {/* Individual Posts */}
             <div className="mt-4">
                 {data.articles?.map((post) => (
-                    <div key={post.id} className="post border rounded p-3 mb-4" style={{ backgroundColor: postBgColor, boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }} onClick={()=>{navigate('/post',{state:{post}})}}>
+                    <div key={post.id} className="post border rounded p-3 mb-4" style={{ backgroundColor: postBgColor, boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }} onClick={() => { navigate('/post', { state: { post } }) }}>
                         <div className="d-flex justify-content-between">
                             <p className="text-muted" style={{ margin: '0', color: secondaryTextColor }}>Posted on {post.created_at}</p>
                         </div>
@@ -98,6 +94,30 @@ function ProfilePage({ mode }) {
                     </div>
                 ))}
             </div>
+
+            {/* Additional CSS for Professional Styling */}
+            <style jsx>{`
+                .btn-professional {
+                    background-color: ${buttonColor};
+                    color: white;
+                    border-radius: 8px;
+                    padding: 0.5rem 1.25rem;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease, transform 0.3s ease;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    border: none;
+                }
+
+                .btn-professional:hover {
+                    background-color: ${mode === 'dark' ? '#0056b3' : '#0056b3'};
+                    transform: translateY(-3px);
+                }
+
+                .btn-professional:active {
+                    background-color: ${mode === 'dark' ? '#004080' : '#004080'};
+                    transform: translateY(1px);
+                }
+            `}</style>
         </div>
     );
 }

@@ -1,0 +1,152 @@
+/* Global Styles for font and basic design */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the whole form page */
+.create-post-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    width: 70%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.4s ease;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Heading */
+.create-post-container h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+/* Form Inputs and Controls */
+.custom-input,
+.custom-file-input,
+.custom-select {
+    padding: 14px 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Focus state for input elements */
+.custom-input:focus,
+.custom-file-input:focus,
+.custom-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+    outline: none;
+    background-color: #fff;
+}
+
+/* File Input - Add custom file input appearance */
+.custom-file-input {
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.custom-file-input:hover {
+    border-color: #3498db;
+}
+
+/* Quill Editor */
+.quill-editor {
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    min-height: 300px;
+    transition: border-color 0.3s ease;
+}
+
+.quill-editor:hover {
+    border-color: #3498db;
+}
+
+/* Submit Button */
+.custom-btn {
+    padding: 14px 30px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.custom-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+}
+
+.custom-btn:active {
+    background-color: #1d5d8c;
+    transform: translateY(1px);
+}
+
+/* Category Select */
+.custom-select {
+    background-color: #fff;
+    padding: 14px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Animation for Page Load */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Container for smaller devices */
+@media (max-width: 768px) {
+    .create-post-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .create-post-container h2 {
+        font-size: 2rem;
+    }
+
+    .custom-input,
+    .custom-file-input,
+    .custom-select {
+        padding: 12px 18px;
+        font-size: 0.95rem;
+    }
+
+    .custom-btn {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}

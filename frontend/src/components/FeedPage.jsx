@@ -2,9 +2,11 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faRetweet, faComment } from '@fortawesome/free-solid-svg-icons';
 import '../CSS/FeedPage.css';
+import HorizontalScrolling from './HorizontalScrolling';
+import CreateBtn from './CreateBtn';
 
 const FeedPage = ({ mode }) => {
-    const textColorClass = mode === 'dark' ? 'text-white' : 'text-dark';
+    const textColorClass = mode === 'dark' ? 'text-white' : 'text-dark';      
     const posts = [
         { 
             id: 1, 
@@ -71,10 +73,11 @@ const FeedPage = ({ mode }) => {
         }
     ];
     
-
     return (
         <div className={`container my-5 bg-${mode}`}>
+             <CreateBtn/>
             <h2 className={`text-center mb-4 ${textColorClass}`}>ALL POSTS</h2>
+            <HorizontalScrolling/>
             <div className="row">
                 {posts.map(post => (
                     <div key={post.id} className="col-md-4 mb-4">
