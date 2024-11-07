@@ -1,9 +1,11 @@
 /* FeedPage.css */
 
-/* General styles */
+/* General Styles */
 .container {
-    padding: 20px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .text-dark {
@@ -14,32 +16,77 @@
     color: #ffffff !important;
 }
 
-/* Post Card Styling */
+/* Stack Post Cards Vertically */
+.post-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adds space between stacked cards */
+}
+
 .post-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Makes the card full-width */
 }
 
 .post-card:hover {
-    transform: scale(0.95);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.post-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Bold Post Title */
+.post-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 /* Dark Mode */
 .bg-dark {
-    background-color: #333 !important;
+    background-color: #2c2c2c !important;
     color: #ffffff !important;
 }
 
-.bg-dark .text-muted {
-    color: #b3b3b3 !important; /* Adjust text-muted color for better contrast */
+.bg-dark .post-card {
+    background-color: #3c3c3c !important;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-.bg-dark .post-card {
-    background-color: #444 !important;
-    border: none;
+.bg-dark .post-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+}
+
+.bg-dark .text-muted {
+    color: #b3b3b3 !important;
 }
 
 .bg-dark .card-body .text-white {
     color: #ffffff !important;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .post-card-container {
+        gap: 15px;
+    }
+}

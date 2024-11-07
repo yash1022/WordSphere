@@ -3,7 +3,7 @@ const app= express();
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
-const { insert_user, get_user, create_article} = require('./script');
+const { insert_user, get_user, create_article, find_article} = require('./script');
 const {validatetoken}= require('./MIDDLEWARES/Auth');
 const { constrainedMemory } = require('process');
 
@@ -87,6 +87,29 @@ app.post('/api/create', validatetoken, async(req,res)=>{
       
 
 
+})
+
+
+app.post('/api/feed',validatetoken,async(req,res)=>{
+    const {user,category}= req.body;
+    
+    
+
+    try{
+
+    const articles= await find_article(user,category);
+    if(articles)
+    {
+    console.log(articles)
+    res.json(articles);
+    }
+
+   
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
 })
 
 const PORT=process.env.PORT||5000;

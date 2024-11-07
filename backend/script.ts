@@ -78,7 +78,7 @@ export const create_article = async(Email:String, Title:String,Content:String,Ca
 
     try{
 
-        console.log("Category value:", Category);
+        
 
     let categoryRecord= await prisma.category.findUnique({
         where:{
@@ -129,7 +129,74 @@ export const create_article = async(Email:String, Title:String,Content:String,Ca
   await prisma.$disconnect();
 }
 
+}
 
 
-  
+export const find_article=async(Email:String,Category:String)=>{
+
+    try {
+
+        if(Category===' '){
+            const articleRecord = await prisma.article.findMany({
+                include:{
+    
+                    author:true,
+    
+                }
+               })
+    
+               return articleRecord;
+        }
+        else{
+
+        let categoryRecord = await prisma.category.findUnique({
+
+            where:{
+                name:String(Category),
+            }
+    
+            
+              
+    
+    
+            
+        })
+    
+        if(!categoryRecord){
+    
+            return;
+                
+        }
+        
+        let articleRecord = await prisma.article.findMany({
+            where:{
+    
+                category_id:categoryRecord.id,
+    
+            },
+
+            include:{
+                author:true,
+                
+            }
+        }) 
+    
+        return articleRecord;
+        }
+        
+    
+
+
+
+}
+    catch(e)
+{
+  console.error('Error finding user:', e);
+  throw e;
+}finally {
+  await prisma.$disconnect();
+}
+
+    
+
 }

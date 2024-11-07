@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Createpost from "./components/Createpost";
 import Landing from "./components/landing";
 import Readpost from "./components/Readpost";
-import HorizontalScrolling from "./components/HorizontalScrolling"; // Import HorizontalScrolling
+ // Import HorizontalScrolling
 
 const authContext = createContext();
 
@@ -42,8 +42,8 @@ function App() {
                         <Route path="/liked" element={<Like mode={mode} />} />
                         <Route path="/home" element={<Landing mode={mode} />} />
                         <Route path="/post" element={<Readpost mode={mode} />} />
-                        {/* Pass mode prop to HorizontalScrolling */}
-                        <Route path="/scroll" element={<HorizontalScrolling mode={mode} />} />
+                        
+                        
                     </Routes>
                 </authContext.Provider>
             </Router>
