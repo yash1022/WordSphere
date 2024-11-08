@@ -1,240 +1,46 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* From Uiverse.io by alexmaracinaru */ 
-.cta {
-  position: relative;
-  /* margin: auto; */
-  padding: 12px 18px;
-  transition: all 0.2s ease;
-  border: none;
-  background: none;
-  cursor: pointer;
-  /* height: 120px; */
-  /* width: 500px; */
-}
-
-.cta:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  border-radius: 50px;
-  background: #e06b00;
-  width: 45px;
-  height: 45px;
-  transition: all 0.3s ease;
-}
-
-.cta span {
-  position: relative;
-  font-family: "Ubuntu", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #000000;
-}
-
-.cta svg {
-  position: relative;
-  top: 0;
-  margin-left: 10px;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke: #000000;
-  stroke-width: 2;
-  transform: translateX(-5px);
-  transition: all 0.3s ease;
-}
-
-.cta:hover:before {
-  width: 100%;
-  background: #e06b00;
-}
-
-.cta:hover svg {
-  transform: translateX(0);
-}
-
-.cta:active {
-  transform: scale(0.95);
-}
-
-
-body {
-  font-family: 'Open Sans', sans-serif; /* Body text in a clean sans-serif */
-  color: #333;
-  scroll-behavior: smooth;
-}
-
-/* Navbar */
-/* Navbar Styling */
-#navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(to right, #333, #444); /* Gradient background */
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
-/* Navbar Links */
-#navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-#navbar li {
-  position: relative;
-}
-
-#navbar a {
-  color: #f5f5f5;
-  text-decoration: none;
-  font-size: 1.2rem;
-  padding: 10px;
-  transition: color 0.3s;
-}
-
-#navbar a:hover {
-  color: #ffa726; /* Hover color */
-}
-
-/* Active Link Highlight */
-#navbar a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: #ffa726; /* Active color */
-  transition: width 0.3s, left 0.3s;
-}
-
-#navbar a:hover::after,
-#navbar a.active::after {
-  width: 100%;
-  left: 0;
-}
-
-/* Logo Placeholder */
-#navbar::before {
-  content: 'MyBlog'; /* Replace with actual logo text or icon if available */
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #ffa726;
-  margin-right: auto;
-  padding-left: 20px;
-}
-
-
-.section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 0 20px;
-  color: #fff;
-  text-align: center;
-  position: relative;
+.homepage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    font-family: "Raleway", sans-serif;
+    margin-top:-130px;
+    margin-left:-20px ;
+  }
   
-}
+  .homepage-text {
+    flex: 1;
+    max-width: 50%;
+  }
 
-.section-image {
-  height: 530px;
-  width: auto;
-  margin-left: 20px;
-}
-
-/*.content-left {*/
-/*    text-align: center;*/
-/*    position: absolute;*/
-/*}*/
-
-/* Section-specific background colors */
-#home {
-  height: 100vh; /* Fullscreen height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 60px; /* Offset for navbar if needed */
-  background: rgb(172, 215, 244);
-  color: #333;
-  text-align: center;
-  font-family: "Montserrat", sans-serif;
-
-}
-
-#about {
-  background: #ff8000; /* Darker orange for About section */
-  color: #f1f1f1; /* White text for contrast */
-}
-
-#features {
-  background:#12b083; /* Darker red for Features section */
-  color: #f1f1f1; /* White text for contrast */
-}
-
-
-#contact {
-  background:#c62828; /* Darker green for Contact section */
-  color: #f1f1f1; /* White text for contrast */
+  span{
+    color:blue;
+  }
   
-}
-
-.content {
-  max-width: 800px;
-}
-
-h1, h2 {
-  font-size:70px;
-  margin-bottom: 20px;
-  /* Subtle shadow */
-  font-family: "Montserrat", sans-serif; /* Elegant serif font for headings */
-}
-
-p {
-  font-size: 1.5rem;
-  line-height: 1.6; /* Improves readability with a bit more spacing */
-}
-
-button {
+  .homepage-text h1 {
+    font-size: 70px;
+    color:black;
+    margin-bottom: 20px;
+  }
   
-  margin-top: 50px;
-  padding: 10px 20px;
-  /* background-color: #f57c00; */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  .homepage-text p {
+    font-size: 18px;
+    color:gray;
+  }
   
-}
-
-/* button:hover { */
-  /* background-color: #e06b00; */
-/* } */
-
-/* Scroll Animations */
-.section .content {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-
-.section.active .content {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .homepage-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 90px;
+  }
+  
+  .homepage-image img {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
