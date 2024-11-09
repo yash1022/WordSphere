@@ -5,17 +5,24 @@
   box-sizing: border-box;
 }
 
-/* From Uiverse.io by alexmaracinaru */ 
+/* General Styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+/* Button Styles */
 .cta {
-  position: relative;
-  /* margin: auto; */
+  position: absolute;  /* Position at the bottom */
+  bottom: 20px;        /* Adjust distance from the bottom */
+  left: 50%;           /* Center horizontally */
+  transform: translateX(-50%);  /* Offset by 50% of the width to ensure it's exactly centered */
   padding: 12px 18px;
   transition: all 0.2s ease;
   border: none;
   background: none;
   cursor: pointer;
-  /* height: 120px; */
-  /* width: 500px; */
 }
 
 .cta:before {
@@ -66,20 +73,12 @@
   transform: scale(0.95);
 }
 
-
-body {
-  font-family: 'Open Sans', sans-serif; /* Body text in a clean sans-serif */
-  color: #333;
-  scroll-behavior: smooth;
-}
-
 /* Navbar */
-/* Navbar Styling */
 #navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  background: linear-gradient(to right, #333, #444); /* Gradient background */
+  background: linear-gradient(to right, #333, #444);
   padding: 10px 0;
   display: flex;
   align-items: center;
@@ -88,7 +87,6 @@ body {
   z-index: 10;
 }
 
-/* Navbar Links */
 #navbar ul {
   list-style: none;
   display: flex;
@@ -108,7 +106,7 @@ body {
 }
 
 #navbar a:hover {
-  color: #ffa726; /* Hover color */
+  color: #ffa726;
 }
 
 /* Active Link Highlight */
@@ -119,7 +117,7 @@ body {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: #ffa726; /* Active color */
+  background-color: #ffa726;
   transition: width 0.3s, left 0.3s;
 }
 
@@ -129,9 +127,8 @@ body {
   left: 0;
 }
 
-/* Logo Placeholder */
 #navbar::before {
-  content: 'MyBlog'; /* Replace with actual logo text or icon if available */
+  content: 'MyBlog';
   font-size: 1.4rem;
   font-weight: bold;
   color: #ffa726;
@@ -139,7 +136,7 @@ body {
   padding-left: 20px;
 }
 
-
+/* Section Styling */
 .section {
   display: flex;
   align-items: center;
@@ -149,89 +146,79 @@ body {
   color: #fff;
   text-align: center;
   position: relative;
-  
-}
-
-.section-image {
-  height: 530px;
-  width: auto;
-  margin-left: 20px;
-}
-
-/*.content-left {*/
-/*    text-align: center;*/
-/*    position: absolute;*/
-/*}*/
-
-/* Section-specific background colors */
-#home {
-  height: 100vh; /* Fullscreen height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 60px; /* Offset for navbar if needed */
-  background: rgb(172, 215, 244);
-  color: #333;
-  text-align: center;
-  font-family: "Montserrat", sans-serif;
-
-}
-
-#about {
-  background: #ff8000; /* Darker orange for About section */
-  color: #f1f1f1; /* White text for contrast */
-}
-
-#features {
-  background:#12b083; /* Darker red for Features section */
-  color: #f1f1f1; /* White text for contrast */
-}
-
-
-#contact {
-  background:#c62828; /* Darker green for Contact section */
-  color: #f1f1f1; /* White text for contrast */
-  
 }
 
 .content {
-  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;  /* Limit the content width */
+  padding: 0 30px;
+}
+
+.left-content, .right-content {
+  width: 50%;
+}
+
+.left-content {
+  text-align: left;
+  padding-right: 20px;
+}
+
+.right-content {
+  text-align: right;
+  padding-left: 20px;
+}
+
+.section img {
+  width: 100%;
+  max-width: 530px;
 }
 
 h1, h2 {
-  font-size:70px;
+  font-size: 70px;
   margin-bottom: 20px;
-  /* Subtle shadow */
-  font-family: "Montserrat", sans-serif; /* Elegant serif font for headings */
+  font-family: "Montserrat", sans-serif;
 }
 
 p {
   font-size: 1.5rem;
-  line-height: 1.6; /* Improves readability with a bit more spacing */
+  line-height: 1.6;
 }
 
-button {
-  
-  margin-top: 50px;
-  padding: 10px 20px;
-  /* background-color: #f57c00; */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  
+/* Section-specific background colors */
+#home {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+  background: rgb(172, 215, 244);
+  position: relative;
 }
 
-/* button:hover { */
-  /* background-color: #e06b00; */
-/* } */
+#about {
+  background: #ff8000;
+}
+
+#features {
+  background: #12b083;
+}
+
+#contact {
+  background: #c62828;
+}
+
+.content-left {
+  text-align: left;
+}
 
 /* Scroll Animations */
 .section .content {
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
+  transition: all 0.5s ease;
 }
 
 .section.active .content {

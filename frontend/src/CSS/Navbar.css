@@ -1,0 +1,46 @@
+.custom-navbar {
+    height: 60px; /* Set your desired height */
+    padding: 0.5rem 1rem; /* Adjust padding to reduce height further */
+  }
+  
+  .custom-navbar .navbar-brand {
+    font-size: 1.25rem; /* Adjust brand size if needed */
+  }
+  
+  .custom-navbar .form-check {
+    margin-left: auto; /* Ensure switch stays aligned correctly */
+  }
+  .custom-button {
+    min-width: 100px;
+    min-height: 35px;
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+  }
+  @media (max-width: 768px) {
+    .custom-navbar {
+      height: auto; /* Let it adapt naturally */
+      padding: 0.25rem 0.5rem;
+    }
+  }
+  .custom-form {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing between input and button */
+  }
+  
+  .custom-input {
+    height: 40px; /* Set consistent height */
+    padding: 0.5rem;
+  }
+  
+  .custom-button {
+    height: 40px;
+    min-width: 120px;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #198754;
+    color: #fff;
+    border-color: #198754;
+  }
+  
