@@ -3,9 +3,10 @@ const app= express();
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
-const { insert_user, get_user, create_article, find_article} = require('./script');
+const { insert_user, get_user, create_article, find_article,saved_article,get_saved,delete_article} = require('./script');
 const {validatetoken}= require('./MIDDLEWARES/Auth');
 const { constrainedMemory } = require('process');
+const { console } = require('inspector');
 
 
 
@@ -100,7 +101,7 @@ app.post('/api/feed',validatetoken,async(req,res)=>{
     const articles= await find_article(user,category);
     if(articles)
     {
-    console.log(articles)
+   
     res.json(articles);
     }
 
@@ -110,6 +111,41 @@ app.post('/api/feed',validatetoken,async(req,res)=>{
     {
         console.log(e);
     }
+})
+
+app.post('/api/save',(req,res)=>{
+
+    const{user_id,org_author_id,article_id}= req.body;
+
+    saved_article(user_id,org_author_id,article_id);
+
+
+})
+
+app.post('/api/getsaved',async (req,res)=>{
+    const {user}= req.body;
+    
+
+    const saved_articles= await get_saved(user);
+
+    if(!saved_articles)
+    {
+        console.log("No saved articles");
+    }
+
+    console.log(saved_articles);
+
+    res.json(saved_articles);
+
+    
+})
+
+app.post('/api/delete',async(req,res)=>{
+
+    const {user,article_id}= req.body;
+    delete_article(user,article_id);
+   
+
 })
 
 const PORT=process.env.PORT||5000;

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBtn = () => {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Fixed Button */}
@@ -17,7 +19,7 @@ const CreateBtn = () => {
           bottom: '50px', // Fixed 20px from the bottom of the viewport
           right: '50px',  // Fixed 20px from the right of the viewport
         }}
-      >
+     onClick={()=>{navigate('/create')}} >
         +
       </button>
 

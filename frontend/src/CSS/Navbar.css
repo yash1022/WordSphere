@@ -1,6 +1,7 @@
 .custom-navbar {
     height: 60px; /* Set your desired height */
     padding: 0.5rem 1rem; /* Adjust padding to reduce height further */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   
   .custom-navbar .navbar-brand {

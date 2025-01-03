@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { authContext } from '../App';
 import { useNavigate, Link } from 'react-router-dom';
+import '../CSS/profile.css'
 
 function ProfilePage({ mode }) {
     const [data, setData] = useState({});
@@ -45,7 +46,7 @@ function ProfilePage({ mode }) {
 
     return (
         <div className="container">
-            <div className="profile-header d-flex align-items-center p-4" style={{ backgroundColor: bgColor, borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
+            {/* <div className="profile-header d-flex align-items-center p-4" style={{ backgroundColor: bgColor, borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
                 <img src={profileImage} alt="Profile" className="profile-image rounded-circle mr-3" style={{ width: '100px', height: '100px', padding: '5px' }} />
                 <div className="profile-details d-flex flex-column" style={{ marginRight: 'auto' }}>
                     <h2 style={{ margin: '0', color: textColor, fontWeight: 'bold' }}>{data.name}</h2>
@@ -65,19 +66,38 @@ function ProfilePage({ mode }) {
                         <p style={{ margin: '0', color: secondaryTextColor }}>Following</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+ 
+          
+<div class="crd">
+  <div class="card-border-top">
+  </div>
+  <div class="img" >
+    <img src={profileImage}/>
+  </div>
+  <span>{data.name}</span>
+  <p class="job">Web Developer</p>
+  <button onClick={()=>{navigate('/fav')}}> Saved Articles
+  </button>
+</div>
+
+  <div className='pst'>
+    Your posts
+  </div>
+  <hr style={{marginTop:'-2px'}}></hr>
+
+
+
+
 
             {/* Navigation Options with Professional Styling */}
-            <div className="profile-navigation mt-4 d-flex justify-content-around">
-                <Link to="/liked" className="btn btn-professional">Likes</Link>
-                <Link to="/fav" className="btn btn-professional">Favorites</Link>
-            </div>
+            
 
-            {/* Posts Heading */}
-            <h2 className="text-center mt-4" style={{ color: textColor }}>POSTS</h2>
+            
 
             {/* Individual Posts */}
-            <div className="mt-4">
+            {/* <div className="row">
                 {data.articles?.map((post) => (
                     <div key={post.id} className="post border rounded p-3 mb-4" style={{ backgroundColor: postBgColor, boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)' }} onClick={() => { navigate('/post', { state: { post } }) }}>
                         <div className="d-flex justify-content-between">
@@ -89,6 +109,48 @@ function ProfilePage({ mode }) {
                             <div className="stat text-center">
                                 <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: '20px', color: textColor }} />
                                 <p style={{ margin: '0', color: textColor }}>Likes</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div> */}
+
+
+
+<div className="row my-4">
+                {data.articles?.map((post) => (
+                    <div key={post.id} className="col-md-4 mb-4" style={{backgroundColor:'#fff'}}>
+                        <div className={`card shadow-sm border-0 bg-${mode} post-card` } style={{backgroundColor:'#fff'}}>
+                            <div className="card-body">
+                                <div className="d-flex align-items-start mb-3">
+                                    
+                                    <div>
+                                        <h5 className={`card-title mb-0`} style={{color:'grey',fontSize:'17px',marginTop:'4px', fontFamily:'Montserrat, serif'}}>
+                                        
+                                         &bull; {new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                        </h5>
+                                    </div>
+                                    
+                                </div>
+                                <hr style={{marginTop:'-5px'}}></hr>
+                                <p className={`card-text mb-2 `} style={{fontFamily:'Montserrat, serif', fontWeight:'700',fontSize:'28px'}}>{post.title}</p>
+                                <img src={''}  className="img-fluid mb-2" style={{ borderRadius: '10px' }} />
+                                <div className="d-flex justify-content-between mt-3">
+                                    <div className="d-flex align-items-center">
+                                        {
+                                            <button class="learn-more" onClick={()=>{navigate('/post',{state:{post}})}}>
+                                            <span class="circle" aria-hidden="true">
+                                            <span class="icon arrow"></span>
+                                            </span>
+                                            <span class="button-text">Read</span>
+                                          </button>
+                                        }
+                                       
+                                            
+                                        
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -4,8 +4,11 @@ import image from '../CSS/solved-the-problem.svg'; // Local image import
 import orange from '../Images/one.png'
 import image2 from '../Images/second.png'
 import image3 from '../Images/red2.png'
+import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
+
+    const navigate= useNavigate();
 
   // Scroll to a section
   function scrollToSection(sectionId) {
@@ -32,10 +35,10 @@ export default function Landing() {
     <>
       {/* Header Section */}
       <header id="home">
-        <div className="content" style={{marginBottom :"18rem"}} >
-          <h1>Welcome to Our Blogging Platform</h1>
+        <div className="contents" style={{marginBottom :"19rem"}} >
+          <h1>Welcome to wordSphere</h1>
         </div>
-        <button className="cta" style={{marginBottom :"22rem"}} onClick={() => scrollToSection('about')}>
+        <button className="cta" style={{marginBottom :"22rem"}} onClick={()=>{navigate('/feed')}}>
           <span>Get Started</span>
           <svg width="15px" height="10px" viewBox="0 0 13 10">
             <path d="M1,5 L11,5"></path>
@@ -46,7 +49,7 @@ export default function Landing() {
 
       {/* About Section */}
       <section id="about" className="section">
-        <div className="content">
+        <div className="contents">
           <div className="left-content">
             <h2>About Us</h2>
             <p>Our platform empowers writers and readers alike. We provide tools and resources to turn ideas into stories and stories into conversations.</p>
@@ -59,7 +62,7 @@ export default function Landing() {
 
       {/* Features Section */}
       <section id="features" className="section">
-        <div className="content">
+        <div className="contents">
           <div className="left-content" style={{width :'50%',paddingLeft:'7rem'}}>
             <h2>Features</h2>
             <p>Discover our intuitive design, easy publishing, and community-driven features to elevate your blogging experience.</p>
@@ -72,7 +75,7 @@ export default function Landing() {
 
       {/* Contact Section */}
       <section id="contact" className="section">
-        <div className="content">
+        <div className="contents">
           <div className="left-content">
             <h2>Contact Us</h2>
             <p>Ready to start blogging? Get in touch with us and join our community of creators.</p>

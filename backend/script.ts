@@ -200,3 +200,135 @@ export const find_article=async(Email:String,Category:String)=>{
     
 
 }
+
+
+export const saved_article= async(user_id:any,org_author_id:any,article_id:any)=>{
+
+    try{
+
+        let userid = await prisma.user.findUnique({
+            where:
+            { 
+                email:user_id
+
+            }
+        })
+
+        if(!userid){
+            console.log("USER NOT FOUND");
+            return;
+        }
+
+        const authorid = userid.id;
+
+    await prisma.savedArticle.create({
+        data:{
+
+            author_id:authorid,
+            original_author_id:org_author_id,
+            article_id:article_id
+        }
+
+        
+    })
+    console.log("ARTICLE SAVED SUCCESSFULY")
+   }
+   catch(e)
+   {
+    console.error('Error saving article:', e);
+    throw e;
+   }finally {
+    await prisma.$disconnect();
+  }
+
+
+
+}
+
+export const get_saved =async(user_id:any)=>{
+    try
+    {
+        const user =await prisma.user.findUnique({
+            where:
+            {
+                email:user_id
+            }
+        })
+
+        if(!user)
+        {   console.log("No user")
+            return
+        }
+
+       
+
+        user_id= user.id;
+      const saved_article=  await prisma.savedArticle.findMany({
+            where:{
+            
+                author_id:user_id,
+                
+            },
+           
+            include:{
+            
+                article:true,
+                originalAuthor:true
+
+            }
+
+        })
+        console.log(saved_article);
+        return saved_article;
+    }
+
+    catch(e)
+    {
+     console.error('Error fetching saved-article:', e);
+     throw e;
+    }finally {
+     await prisma.$disconnect();
+   }
+}
+
+
+export const delete_article = async(userid:any, article_id:any)=>{
+
+    try{
+
+    const user_data=  await prisma.user.findUnique({
+        where:{
+            email:userid
+        }
+    })
+
+    if(!user_data)
+    {
+        console.log("USER NOT FOUND")
+        return;
+    }
+
+    const user_id = user_data.id
+
+    await prisma.savedArticle.delete({
+
+        where:{
+
+            author_id_article_id:{
+             author_id:user_data.id,
+             article_id:article_id,
+         }
+        }
+    })
+
+}
+
+catch(e)
+    {
+     console.error('Error fetching saved-article:', e);
+     throw e;
+    }finally {
+     await prisma.$disconnect();
+   }
+
+}

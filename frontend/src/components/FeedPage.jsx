@@ -51,6 +51,8 @@ const FeedPage = ({ mode }) => {
         })
         const data = await response.json();
         setData(data);
+        
+        
     }catch(e)
     {
         console.log(e)
@@ -64,46 +66,117 @@ const FeedPage = ({ mode }) => {
     {
         Setcategory(event)
     }
+
+
+  async function handleSave(authorId,articleId)
+   {
+      await fetch('http://localhost:5000/api/save',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            
+        },
+
+        body:JSON.stringify({
+            user_id:Auth.User,
+            org_author_id:authorId,
+            article_id:articleId,
+            
+
+
+        })
+      })
+   }
+
+   
+   
+   
+   
     
     return (
 
         <>
 
-<div className="container">
-            <div className={`scrollmenu ${mode === "dark" ? "dark" : "light"}`}>
+<div className="container" >
+            <div className={`scrollmenu ${mode === "dark" ? "dark" : "light"}`} style={{backgroundColor:'#fff'}}>
                 {["Technology", "Self Improvement", "Health", "Psychology", "Mental Health", "Software Development", "Relationships", "AWS", "UX Design", "Home", "News", "Contact", "About", "Support", "Blog", "Tools", "Base", "Custom", "More", "Logo", "Friends", "Partners", "People", "Work"].map(cat => (
                     <span key={cat} className="link" onClick={() => handleClick(cat)}>
                         {cat}
                     </span>
                 ))}
+
+                
             </div>
-        </div>
+            <hr style={{marginTop:'-17px'}}></hr>
+</div>
 
     
-        <div className={`container my-5 bg-${mode}`}>
+        <div className={`container my-2 bg-${mode}`}>
              <CreateBtn/>
-            <h2 className={`text-center mb-4 ${textColorClass}`}>ALL POSTS</h2>
             
-            <div className="row">
+            
+            <div className="row" style={{backgroundColor:'#fff', marginTop:'-20px'}}>
                 {Data.map(post => (
-                    <div key={post.id} className="col-md-4 mb-4" onClick={()=>{navigate('/post',{state:{post}})}}>
-                        <div className={`card shadow-sm border-0 bg-${mode} post-card`}>
+                    <div key={post.id} className="col-md-4 mb-4" style={{backgroundColor:'#fff'}}>
+                        <div className={`card shadow-sm border-0 bg-${mode} post-card` } style={{backgroundColor:'#fff'}}>
                             <div className="card-body">
                                 <div className="d-flex align-items-start mb-3">
-                                    <img src={post.author.profile_pic} alt={''} className="rounded-circle me-2" style={{ width: '50px', height: '50px' }} />
+                                    <img src={post.author.profile_pic} alt={''} className="rounded-circle me-2" style={{ width: '30px', height: '30px' }} />
                                     <div>
-                                        <h5 className={`card-title mb-0 ${textColorClass}`}>
-                                            {post.author.name} <small className="text-muted">{}</small>
+                                        <h5 className={`card-title mb-0`} style={{color:'grey',fontSize:'17px',marginTop:'4px', fontFamily:'Montserrat, serif'}}>
+                                        
+                                            {post.author.name} &bull; {new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                         </h5>
                                     </div>
+                                    
                                 </div>
-                                <p className={`card-text mb-2 ${textColorClass}`}>{post.title}</p>
+                                <hr style={{marginTop:'-5px'}}></hr>
+                                <p className={`card-text mb-2 `} style={{fontFamily:'Montserrat, serif', fontWeight:'700',fontSize:'28px'}}>{post.title}</p>
                                 <img src={''}  className="img-fluid mb-2" style={{ borderRadius: '10px' }} />
                                 <div className="d-flex justify-content-between mt-3">
                                     <div className="d-flex align-items-center">
-                                        {/* <FontAwesomeIcon icon={faThumbsUp} className="me-2" /> {post.stats.likes}
-                                        <FontAwesomeIcon icon={faRetweet} className="me-2 ms-3" /> {post.stats.retweets}
-                                        <FontAwesomeIcon icon={faComment} className="me-2 ms-3" /> {post.stats.comments} */}
+                                        {
+                                            <button class="learn-more" onClick={()=>{navigate('/post',{state:{post}})}}>
+                                            <span class="circle" aria-hidden="true">
+                                            <span class="icon arrow"></span>
+                                            </span>
+                                            <span class="button-text">Read</span>
+                                          </button>
+                                        }
+                                        {post.author.email !== Auth.User ? (
+
+                                            /* From Uiverse.io by PriyanshuGupta28 */ 
+                                            // <div class="checkbox-wrapper">
+                                            //     <input id="_checkbox-26" type="checkbox" onClick={()=>{handleSave(post.author_id,post.id)}}/>
+                                            //         <label for="_checkbox-26">
+                                            //             <div class="tick_mark"></div>
+                                            //         </label>
+                                            // </div>
+
+                                           
+                                            /* From Uiverse.io by adamgiebl */ 
+                                            <button class="cssbuttons-io-button" onClick={()=>{handleSave(post.author_id,post.id)}}>
+                                                <svg
+                                                    height="24"
+                                                    width="24"
+                                                    viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+                                                </svg>
+                                                <span>Save</span>
+                                            </button>
+
+
+
+
+
+
+                                        ):null}
+                                            
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -1,69 +1,95 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import "../CSS/readpage.css"
 
 export default function Readpost() {
     const location = useLocation();
     const post = location.state?.post;
+    
 
     return (
-        <div style={styles.container}>
-            <h1 style={styles.title}>{post?.title || "Untitled Article"}</h1>
-            <div style={styles.metaDataContainer}>
-                {post?.profile_Pic && (
-                    <img src={post.profile_Pic} alt="Author" style={styles.profilePic} />
-                )}
-                <p style={styles.metaData}>
-                    <span style={styles.author}>{post?.author.name || "Author Name"}</span> | 
-                    <span style={styles.date}>{post?.created_at || "Date Published"}</span>
-                </p>
-            </div>
-            <div style={styles.content}>
-                {post?.content ? (
-                    <p>{post.content}</p>
-                ) : (
-                    <p>No content available.</p>
-                )}
+        // <div style={styles.container}>
+        //     <h1 style={styles.title}>{post?.title || "Untitled Article"}</h1>
+        //     <div style={styles.metaDataContainer}>
+        //         {post?.profile_Pic && (
+        //             <img src={post.profile_Pic} alt="Author" style={styles.profilePic} />
+        //         )}
+        //         <p style={styles.metaData}>
+        //             {/* <span style={styles.author}>{name}</span>  */}
+        //             <span style={styles.date}>{post?.created_at || "Date Published"}</span>
+        //         </p>
+        //     </div>
+        //     <div style={styles.content}>
+        //         {post?.content ? (
+        //             <p>{post.content}</p>
+        //         ) : (
+        //             <p>No content available.</p>
+        //         )}
+        //     </div>
+        // </div>
+
+<>
+    <div className="postconttainer">
+    <p className="title">{post?.title || post.article?.title}</p>
+    <div className="metaDatapostconttainer">
+     <img src={post.author?.profile_Pic || post.orginalAuthor?.profile_Pic} className="profilePic"/>
+      <div className="metaDetails">
+        <div className="maindetails">
+          <span className="name">{post.author?.name || post.originalAuthor?.name}</span>
+          
+        </div>
+        <div className="additionaldetails">
+          <span className="published">Published on <strong>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</strong></span>
+          
+        </div>
+      </div>
+    </div>
+    <div className="interactionBar">
+    <div className="heart-container" title="Like">
+            <input type="checkbox" className="checkbox" id="Give-It-An-Id"/>
+            <div className="svg-container">
+                <svg viewBox="0 0 24 24" className="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                    </path>
+                </svg>
+                <svg viewBox="0 0 24 24" className="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                    </path>
+                </svg>
+                <svg className="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="10,10 20,20"></polygon>
+                    <polygon points="10,50 20,50"></polygon>
+                    <polygon points="20,80 30,70"></polygon>
+                    <polygon points="90,10 80,20"></polygon>
+                    <polygon points="90,50 80,50"></polygon>
+                    <polygon points="80,80 70,70"></polygon>
+                </svg>
             </div>
         </div>
-    );
-}
+        <label className="ui-bookmark">
+            <input type="checkbox"/>
+            <div className="bookmark">
+            <svg viewBox="0 0 32 32">
+                <g>
+                <path d="M27 4v27a1 1 0 0 1-1.625.781L16 24.281l-9.375 7.5A1 1 0 0 1 5 31V4a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4z"></path>
+                </g>
+            </svg>
+            </div>
+        </label>
+    </div>
+   
+    <div className="content">
+        <p>{post.content || post.article?.content}</p>
+    </div>
+   </div>
 
-const styles = {
-    container: {
-        padding: '40px 20px',
-        backgroundColor: '#f5f5f5',
-    },
-    title: {
-        fontSize: '2.5em',
-        fontWeight: 'bold',
-        marginBottom: '15px',
-        color: '#333333',
-    },
-    metaDataContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '30px',
-    },
-    profilePic: {
-        width: '50px',
-        height: '50px',
-        borderRadius: '50%',
-        marginRight: '10px',
-    },
-    metaData: {
-        fontSize: '1em',
-        color: '#888888', // grey color for metadata
-    },
-    author: {
-        fontWeight: '600',
-    },
-    date: {
-        marginLeft: '10px',
-    },
-    content: {
-        fontSize: '1.25em',
-        lineHeight: '1.8',
-        color: '#444444',
-        whiteSpace: 'pre-line',
-    },
-};
+</>
+)};
+
+
+
+    
+
+
+
+

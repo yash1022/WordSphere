@@ -15,8 +15,9 @@ body {
 /* Button Styles */
 .cta {
   position: absolute;  /* Position at the bottom */
-  bottom: 20px;        /* Adjust distance from the bottom */
-  left: 50%;           /* Center horizontally */
+  bottom: -50px;      
+  left: 50%; 
+         /* Center horizontally */
   transform: translateX(-50%);  /* Offset by 50% of the width to ensure it's exactly centered */
   padding: 12px 18px;
   transition: all 0.2s ease;
@@ -29,12 +30,12 @@ body {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  left:0;
   display: block;
   border-radius: 50px;
   background: #e06b00;
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
   transition: all 0.3s ease;
 }
 
@@ -43,13 +44,14 @@ body {
   font-family: "Ubuntu", sans-serif;
   font-size: 18px;
   font-weight: 700;
+  margin-left: -4px;
   letter-spacing: 0.05em;
   color: #000000;
 }
 
 .cta svg {
   position: relative;
-  top: 0;
+  top:-2px;
   margin-left: 10px;
   fill: none;
   stroke-linecap: round;
@@ -69,9 +71,9 @@ body {
   transform: translateX(0);
 }
 
-.cta:active {
+/* .cta:active {
   transform: scale(0.95);
-}
+} */
 
 /* Navbar */
 #navbar {
@@ -148,7 +150,7 @@ body {
   position: relative;
 }
 
-.content {
+.contents {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -180,6 +182,13 @@ h1, h2 {
   font-size: 70px;
   margin-bottom: 20px;
   font-family: "Montserrat", sans-serif;
+  
+}
+
+h1{
+  margin-left: 250px;
+  font-size: 100px !important;
+  font-weight: 700;
 }
 
 p {
@@ -215,13 +224,13 @@ p {
 }
 
 /* Scroll Animations */
-.section .content {
+.section .contents {
   opacity: 0;
   transform: translateY(50px);
   transition: all 0.5s ease;
 }
 
-.section.active .content {
+.section.active .contents {
   opacity: 1;
   transform: translateY(0);
 }

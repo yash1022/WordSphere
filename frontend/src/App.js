@@ -40,7 +40,7 @@ function App() {
                         <Route path="/create" element={<Createpost mode={mode} />} />
                         <Route path="/fav" element={<Fav mode={mode} />} />
                         <Route path="/liked" element={<Like mode={mode} />} />
-                        <Route path="/home" element={<Landing mode={mode} />} />
+                        <Route path="/" element={<Landing mode={mode} />} />
                         <Route path="/post" element={<Readpost mode={mode} />} />
                         
                         

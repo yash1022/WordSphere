@@ -4,6 +4,9 @@ import 'react-quill/dist/quill.snow.css';
 import { authContext } from '../App';
 import { useNavigate, Link } from 'react-router-dom';
 import '../CSS/Createpost.css';
+import TurndownService from 'turndown';
+const turndownService = new TurndownService();
+
 
 export default function CreatePost() {
     const [Value, setValue] = useState('');
@@ -33,6 +36,8 @@ export default function CreatePost() {
             return;
         }
 
+        const markdownContent = turndownService.turndown(Value);
+
         const response = await fetch('http://localhost:5000/api/create', {
             method: 'POST',
             headers: {
@@ -45,7 +50,7 @@ export default function CreatePost() {
                 title: Title,
                 category: Category,
                 thumbnail: Thumbnail,
-                content: Value,
+                content:markdownContent,
             }),
         });
 

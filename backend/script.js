@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.find_article = exports.create_article = exports.get_user = exports.insert_user = void 0;
+exports.delete_article = exports.get_saved = exports.saved_article = exports.find_article = exports.create_article = exports.get_user = exports.insert_user = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const insert_user = (data) => __awaiter(void 0, void 0, void 0, function* () {
@@ -144,3 +144,96 @@ const find_article = (Email, Category) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.find_article = find_article;
+const saved_article = (user_id, org_author_id, article_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let userid = yield prisma.user.findUnique({
+            where: {
+                email: user_id
+            }
+        });
+        if (!userid) {
+            console.log("USER NOT FOUND");
+            return;
+        }
+        const authorid = userid.id;
+        yield prisma.savedArticle.create({
+            data: {
+                author_id: authorid,
+                original_author_id: org_author_id,
+                article_id: article_id
+            }
+        });
+        console.log("ARTICLE SAVED SUCCESSFULY");
+    }
+    catch (e) {
+        console.error('Error saving article:', e);
+        throw e;
+    }
+    finally {
+        yield prisma.$disconnect();
+    }
+});
+exports.saved_article = saved_article;
+const get_saved = (user_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield prisma.user.findUnique({
+            where: {
+                email: user_id
+            }
+        });
+        if (!user) {
+            console.log("No user");
+            return;
+        }
+        user_id = user.id;
+        const saved_article = yield prisma.savedArticle.findMany({
+            where: {
+                author_id: user_id,
+            },
+            include: {
+                article: true,
+                originalAuthor: true
+            }
+        });
+        console.log(saved_article);
+        return saved_article;
+    }
+    catch (e) {
+        console.error('Error fetching saved-article:', e);
+        throw e;
+    }
+    finally {
+        yield prisma.$disconnect();
+    }
+});
+exports.get_saved = get_saved;
+const delete_article = (userid, article_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user_data = yield prisma.user.findUnique({
+            where: {
+                email: userid
+            }
+        });
+        if (!user_data) {
+            console.log("USER NOT FOUND");
+            return;
+        }
+        const user_id = user_data.id;
+        yield prisma.savedArticle.delete({
+            where: {
+                author_id_article_id: {
+                    author_id: user_data.id,
+                    article_id: article_id,
+                }
+            }
+        });
+    }
+    catch (e) {
+        console.error('Error fetching saved-article:', e);
+        throw e;
+    }
+    finally {
+        yield prisma.$disconnect();
+    }
+});
+exports.delete_article = delete_article;
