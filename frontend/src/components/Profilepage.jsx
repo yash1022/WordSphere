@@ -74,7 +74,7 @@ function ProfilePage({ mode }) {
   <div class="card-border-top">
   </div>
   <div class="img" >
-    <img src={profileImage}/>
+    <img src={profileImage} style={{borderRadius:'50%', marginLeft:'-7px', marginTop:'-2px'}}/>
   </div>
   <span>{data.name}</span>
   <p class="job">Web Developer</p>

@@ -58,7 +58,7 @@ export default function CreatePost() {
 
         if (data) {
             alert('Form created successfully');
-            navigate('/home');
+            navigate('/feed');
         }
     }
 

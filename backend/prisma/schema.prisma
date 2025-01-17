@@ -23,7 +23,7 @@ model User{
   articles Article[]  @relation("userarticles")
   comments Comment[]  @relation("usercomments")
   saved    SavedArticle[] @relation("usersaved")
-  likes    Like[] @relation("userlikes")
+  likes    Likes[] @relation("userlikes")
   authorSaved SavedArticle[]  @relation("authorSavedArticles")
 }
 
@@ -40,7 +40,9 @@ model Article{
   category Category @relation("articlecategory",fields: [category_id], references: [id])
   category_id Int
   comments Comment[]
-  likes  Like[]
+  likes  Likes[]
+  count Int @default(0)
+  
   saved  SavedArticle[] @relation("articlesaved")
 
 }
@@ -64,12 +66,13 @@ model Comment{
   
 }
 
-model Like{
+model Likes{
   
   author User? @relation("userlikes",fields: [author_id], references:[id])
   author_id Int
   article Article? @relation(fields: [article_id],references:[id])
   article_id Int
+  
   @@id([author_id,article_id])
 }
 

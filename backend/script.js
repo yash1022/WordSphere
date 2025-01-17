@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.delete_article = exports.get_saved = exports.saved_article = exports.find_article = exports.create_article = exports.get_user = exports.insert_user = void 0;
+exports.likes = exports.getInfo = exports.delete_article = exports.get_saved = exports.saved_article = exports.find_article = exports.create_article = exports.get_user = exports.insert_user = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const insert_user = (data) => __awaiter(void 0, void 0, void 0, function* () {
@@ -237,3 +237,94 @@ const delete_article = (userid, article_id) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.delete_article = delete_article;
+const getInfo = (user, article_id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userData = yield prisma.user.findUnique({
+            where: {
+                email: user,
+            },
+        });
+        if (!userData) {
+            return { error: 'User not found' };
+        }
+        const likeCheck = yield prisma.likes.findUnique({
+            where: {
+                author_id_article_id: {
+                    author_id: userData.id,
+                    article_id: article_id,
+                },
+            },
+        });
+        if (!likeCheck) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    catch (e) {
+        console.error('Error fetching saved-article:', e);
+        throw e;
+    }
+    finally {
+        yield prisma.$disconnect();
+    }
+});
+exports.getInfo = getInfo;
+const likes = (user, article_id, like) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user_data = yield prisma.user.findUnique({
+            where: {
+                email: user
+            }
+        });
+        if (!user_data)
+            return;
+        if (!like) {
+            yield prisma.article.update({
+                where: {
+                    id: article_id,
+                },
+                data: {
+                    count: {
+                        increment: 1
+                    }
+                }
+            });
+            yield prisma.likes.create({
+                data: {
+                    author_id: user_data.id,
+                    article_id: article_id
+                }
+            });
+        }
+        else {
+            yield prisma.article.update({
+                where: {
+                    id: article_id,
+                },
+                data: {
+                    count: {
+                        decrement: 1
+                    }
+                }
+            });
+            yield prisma.likes.delete({
+                where: {
+                    author_id_article_id: {
+                        author_id: user_data.id,
+                        article_id: article_id,
+                    }
+                }
+            });
+        }
+    }
+    catch (e) {
+        console.error('Error fetching saved-article:', e);
+        throw e;
+    }
+    finally {
+        yield prisma.$disconnect();
+    }
+});
+exports.likes = likes;

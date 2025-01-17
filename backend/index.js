@@ -3,7 +3,7 @@ const app= express();
 const cors= require('cors');
 const bodyParser = require('body-parser');
 
-const { insert_user, get_user, create_article, find_article,saved_article,get_saved,delete_article} = require('./script');
+const { insert_user, get_user, create_article, find_article,saved_article,get_saved,delete_article,getInfo,likes} = require('./script');
 const {validatetoken}= require('./MIDDLEWARES/Auth');
 const { constrainedMemory } = require('process');
 const { console } = require('inspector');
@@ -101,7 +101,7 @@ app.post('/api/feed',validatetoken,async(req,res)=>{
     const articles= await find_article(user,category);
     if(articles)
     {
-   
+    
     res.json(articles);
     }
 
@@ -146,6 +146,38 @@ app.post('/api/delete',async(req,res)=>{
     delete_article(user,article_id);
    
 
+})
+
+app.post('/api/info',async(req,res)=>{
+     const {user,article_id}= req.body;
+
+     const article_info = await getInfo(user,article_id);
+
+     if(!article_info)
+     {
+        res.json(0);
+     }
+
+     
+     else
+     {res.json(1);}
+        
+     
+
+})
+
+app.post('/api/like',async(req,res)=>{
+    const {user,article_id,like}=req.body
+
+    likes(user,article_id,like);
+
+    res.json(1);
+
+
+
+
+
+    
 })
 
 const PORT=process.env.PORT||5000;

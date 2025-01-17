@@ -332,3 +332,126 @@ catch(e)
    }
 
 }
+
+
+export const getInfo = async (user: any, article_id: any) => {
+
+    try{const userData = await prisma.user.findUnique({
+        where: {
+          email: user,
+        },
+      });
+    
+     
+      if (!userData) {
+        return { error: 'User not found' };
+      }
+    
+     
+      const likeCheck = await prisma.likes.findUnique({
+        where: {
+          author_id_article_id: {
+            author_id: userData.id,  
+            article_id: article_id,
+          },
+        },
+      });
+    
+      
+      if (!likeCheck) {
+        return false ;  
+      }
+
+      else
+      {
+        return true;
+      }
+    
+      
+      
+    
+    }
+      
+      catch(e)
+      {
+       console.error('Error fetching saved-article:', e);
+       throw e;
+      }finally {
+       await prisma.$disconnect();
+     }
+  
+      
+  };
+
+  export const likes= async(user:any,article_id:any,like:any)=>{
+    try
+    {
+        const user_data =await prisma.user.findUnique({
+            where:{
+                email:user
+            }
+        })
+
+        if(!user_data) return
+
+
+        if(!like)
+        {
+            await prisma.article.update({
+                where:{
+                    id: article_id,
+                },
+
+                data:{
+                    count:{
+                        increment:1
+                    }
+                }
+            })
+
+
+            await prisma.likes.create({
+                data:{
+                    author_id:user_data.id,
+                    article_id:article_id
+                }
+                   
+            })
+
+
+        }
+
+
+        else 
+        {
+            await prisma.article.update({
+                where:{
+                    id: article_id,
+                },
+
+                data:{
+                    count:{
+                        decrement:1
+                    }
+                }
+            })
+
+            await prisma.likes.delete({
+                where:{
+                    author_id_article_id:{
+                        author_id:user_data.id,
+                        article_id:article_id,
+                    }
+                }
+            })
+        }
+    }
+    catch(e)
+    {
+     console.error('Error fetching saved-article:', e);
+     throw e;
+    }finally {
+     await prisma.$disconnect();
+   }
+
+  }

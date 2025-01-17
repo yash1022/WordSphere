@@ -1,9 +1,2 @@
-/*
-  Warnings:
-
-  - The primary key for the `savedarticle` table will be changed. If it partially fails, the table could be left without primary key constraint.
-
-*/
--- AlterTable
-ALTER TABLE `savedarticle` DROP PRIMARY KEY,
-    ADD PRIMARY KEY (`article_id`);
+ALTER TABLE `Like`
+ADD COLUMN `count` INT NOT NULL DEFAULT 0;

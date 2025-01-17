@@ -51,6 +51,7 @@ const FeedPage = ({ mode }) => {
         })
         const data = await response.json();
         setData(data);
+        console.log(data);
         
         
     }catch(e)
