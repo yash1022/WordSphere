@@ -1,4 +1,4 @@
-# Mozilla_project-1
+
 
 # Blogging Website
 
@@ -48,3 +48,18 @@ Follow these steps to set up the project on your local machine:
    ```bash
    git clone https://github.com/yash1022/Mozilla_project-1.git
    cd blogging-website
+
+   ```
+   Screenshots
+
+   ![Screenshot 2025-05-05 002155](https://github.com/user-attachments/assets/1225673e-5824-4141-a01d-16100eb583e0)
+![Screenshot 2025-05-05 002328](https://github.com/user-attachments/assets/21df691d-f9b5-46d4-b209-98766919acc2)
+![Screenshot 2025-05-05 002352](https://github.com/user-attachments/assets/5e6b0301-66cb-4ecb-b5d8-fb960f9a1067)
+
+
+
+
+
+
+
+   
